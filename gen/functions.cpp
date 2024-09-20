@@ -207,7 +207,10 @@ llvm::FunctionType *DtoFunctionType(Type *type, IrFuncTy &irFty, Type *thistype,
         // original argument.
         attrs.addByValAttr(DtoType(loweredDType));
         if (auto alignment = DtoAlignment(loweredDType))
+        {
+          // BNV TODO add warning if alignment > 4
           attrs.addAlignmentAttr(alignment);
+        }
         passPointer = true;
       } else {
         // Add sext/zext as needed.
